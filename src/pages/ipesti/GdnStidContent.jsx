@@ -13,7 +13,7 @@ export const GdnStidContent = ({ data, slug }) => {
         data: {},
     });
     const [sectionDetail, setSectionDetail] = useState("");
-    const [lang, setLang] = useState(localStorage.getItem("lang") || "FR");
+    const [lang, setLang] = useState(localStorage.getItem("lang") || "fr");
 
     useEffect(() => {
         const storedLang = localStorage.getItem("lang");
@@ -101,7 +101,7 @@ export const GdnStidContent = ({ data, slug }) => {
                 <div className="row">
                     <div className="col-12">
                         <div className="d-flex flex-wrap">
-                            {section[lang].map((data, idx) => {
+                            {section[lang]?.map((data, idx) => {
                                 if (idx === 0 && sectionDetail === "") {
                                     setSectionDetail(data);
                                 }

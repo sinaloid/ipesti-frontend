@@ -103,11 +103,11 @@ export const Header = () => {
                             </span>
                         </div>
                         <div className="mx-3 d-inline-block d-flex align-items-center">
-                            <div className="fw-bold">
+                            <div className="fw-bold d-none">
                                 <span className="fs-20">A+/</span>
                                 <span className="fs-14">A-</span>
                             </div>
-                            <span className="ms-3 me-5">
+                            <span className="ms-3 me-5 d-none">
                                 <ModeIcon />
                             </span>
                             <div className="">

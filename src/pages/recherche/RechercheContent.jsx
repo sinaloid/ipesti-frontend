@@ -9,7 +9,11 @@ export const RechercheContent = ({ }) => {
     const [data, setData] = useState({});
     const [seletedData, setSelectedData] = useState({});
     const [sectionDetail, setSectionDetail] = useState("");
-    const [lang, setLang] = useState(localStorage.getItem("lang") || "FR");
+    const [lang, setLang] = useState(localStorage.getItem("lang") || "fr");
+    const section = {
+        fr: ["Laboratoires associés", "Descriptif", "Axes de recherche", "Projets", "Equipe scientifique"],
+        en: ["Associated laboratories", "Descriptive", "Research axes", "Projects", "Scientific team"]
+    }
     useEffect(() => {
         const storedLang = localStorage.getItem("lang");
         if (storedLang && storedLang !== lang) {
@@ -32,10 +36,7 @@ export const RechercheContent = ({ }) => {
             });
     };
 
-    const section = {
-        fr: ["Laboratoires associés", "Descriptif", "Axes de recherche", "Projets", "Equipe scientifique"],
-        en: ["Associated laboratories", "Descriptive", "Research axes", "Projects", "Scientific team"]
-    }
+    
 
     return (
         <>
@@ -92,7 +93,7 @@ export const RechercheContent = ({ }) => {
                                 </span>
                             </div>
                             <div className="d-flex flex-wrap border-top mt-4">
-                                {section[lang].map((data, idx) => {
+                                {section[lang]?.map((data, idx) => {
                                     if (idx === 0 && sectionDetail === "") {
                                         setSectionDetail(data);
                                     }

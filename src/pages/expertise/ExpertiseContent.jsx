@@ -13,7 +13,9 @@ export const ExpertiseContent = ({ data, slug }) => {
         data: {},
     });
     const [sectionDetail, setSectionDetail] = useState("");
-    const [lang, setLang] = useState(localStorage.getItem("lang") || "FR");
+    const [lang, setLang] = useState(localStorage.getItem("lang") || "fr");
+    const [expertise, setExpertise] = useState({});
+
 
     useEffect(() => {
         const storedLang = localStorage.getItem("lang");
@@ -22,8 +24,8 @@ export const ExpertiseContent = ({ data, slug }) => {
         }
     }, [lang]);
     useEffect(() => {
-        console.log(data);
         get();
+        getExpertise();
     }, [data, slugOne]);
 
     const changerView = (slug) => {
@@ -42,6 +44,18 @@ export const ExpertiseContent = ({ data, slug }) => {
             });
     };
 
+    const getExpertise = () => {
+        request
+            .get(endPoint.categories + "/expertise-conseil")
+            .then((res) => {
+                //console.log(res.data);
+                setExpertise(res.data.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
     const dataSelected = (data) => {
         setDetail({
             isset: true,
@@ -50,18 +64,18 @@ export const ExpertiseContent = ({ data, slug }) => {
     };
 
     const section = {
-        fr:["Collecte et analyse", "Elaboration", "Diffusion"],
-        en:["Collection and analysis", "Elaboration", "Diffusion"]
+        fr: ["Collecte et analyse", "Elaboration", "Diffusion"],
+        en: ["Collection and analysis", "Elaboration", "Diffusion"]
     }
     return (
         <div className="col-12 col-md-8">
             {/**<h4 className="text-primary mb-3">{content.titre}</h4> */}
-            <div className="d-flex mb-1 border-bottom">
-                <span className="text-primary fs-20 fw-bold">
+            <div className="d-flex mb-3">
+                <h1 className="text-primary">
                     {
                         lang === "en" ? content.titre_en : content?.titre
                     }
-                </span>
+                </h1>
                 {/*content.toutes_sous_categories?.map((item, idx) => {
                     return (
                         <div
@@ -87,12 +101,13 @@ export const ExpertiseContent = ({ data, slug }) => {
                     );
                 })*/}
             </div>
+            <div className="mb-1 border-bottom" dangerouslySetInnerHTML={{ __html: lang === "en" ? expertise.contenu_en : expertise.contenu }} />
 
             <>
                 <div className="row">
                     <div className="col-12">
                         <div className="d-flex flex-wrap">
-                            {section[lang].map(
+                            {section[lang]?.map(
                                 (data, idx) => {
                                     if (
                                         idx === 0 &&

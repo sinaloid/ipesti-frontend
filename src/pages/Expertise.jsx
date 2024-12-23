@@ -52,7 +52,7 @@ export const Expertise = () => {
                 <div className="row">
                     <div className="col-12 col-md-4">
                         <h3 className="bg-gray-60 text-white text-center1 ps-4 py-2 d-none d-md-block">
-                            {lang === "en" ? detail.titre_en : detail.titre}    
+                            {lang === "en" ? detail.titre_en : detail.titre}
                         </h3>
                         <MenuSection
                             list={detail.toutes_sous_categories}
@@ -61,14 +61,7 @@ export const Expertise = () => {
                         />
                     </div>
                     <div className="col-12 col-md-8">
-                        <h1 className="text-primary">{lang === "en" ? detail.titre_en : detail.titre}</h1>
-                        <div className="my-4">
-                            <div
-                                dangerouslySetInnerHTML={{
-                                    __html: lang === "en" ? detail.contenu_en : detail.contenu,
-                                }}
-                            />
-                        </div>
+                        
                         <div className="">{pages[slugOne]}</div>
                     </div>
                 </div>
