@@ -11,8 +11,11 @@ const lang = URL + "assets/langs/fr_FR.js";
 
 const initData = {
     titre: "",
+    titre_en: "",
     contenu: "",
+    contenu_en: "",
     htmlOne: "",
+    htmlOne_en: "",
     email: "",
     image: "",
     lien: "",
@@ -116,16 +119,17 @@ export const ViewEditor = () => {
                     formik={formik}
                 />
                 <Input
+                    type={"text"}
+                    label="Titre du contenu en anglais"
+                    placeholder="Titre du contenu"
+                    name={"titre_en"}
+                    formik={formik}
+                />
+                <Input
                     type={"file"}
                     label="image"
                     placeholder="image"
                     name={"image"}
-                    formik={formik}
-                />
-                <Input
-                    type={"textarea"}
-                    placeholder="Description du produit"
-                    name={"description"}
                     formik={formik}
                 />
                 <div>Profile</div>

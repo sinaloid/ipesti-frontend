@@ -14,8 +14,11 @@ const lang = URL + "assets/langs/fr_FR.js";
 
 const initData = {
     titre: "",
+    titre_en: "",
     contenu: "",
+    contenu_en: "",
     htmlOne: "",
+    htmlOne_en  : "",
     email: "",
     image: "",
     lien: "",

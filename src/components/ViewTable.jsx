@@ -11,8 +11,11 @@ const lang = URL + "assets/langs/fr_FR.js";
 
 const initData = {
     titre: "",
+    titre_en: "",
     contenu: "",
+    contenu_en: "",
     htmlOne: "",
+    htmlOne_en: "",
     email: "",
     image: "",
     lien: "",
@@ -36,9 +39,13 @@ export const ViewTable = () => {
     const navigate = useNavigate();
 
     const [contenu, setContenu] = useState("");
+    const [contenuEn, setContenuEn] = useState("");
     const [profile, setProfile] = useState("");
+    const [profileEn, setProfileEn] = useState("");
     const [contenuInit, setContenuInit] = useState("");
+    const [contenuInitEN, setContenuInitEN] = useState("");
     const [profileInit, setProfileInit] = useState("");
+    const [profileInitEN, setProfileInitEN] = useState("");
     const [initvalue, setInitValue] = useState("");
     const [text, setText] = useState("");
     useEffect(() => {
@@ -49,7 +56,9 @@ export const ViewTable = () => {
         onSubmit: (values) => {
             values.parent = slug;
             values.contenu = contenu;
+            values.contenu_en = contenuEn;
             values.htmlOne = profile;
+            values.htmlOne_en = profileEn;
             console.log(values);
             if (values.id) {
                 update(values);
@@ -151,10 +160,13 @@ export const ViewTable = () => {
         formik.setFieldValue("_method", "put");
         formik.setFieldValue("id", data.id);
         formik.setFieldValue("titre", data.titre);
+        formik.setFieldValue("titre_en", data.titre_en);
         formik.setFieldValue("description", data.description);
         formik.setFieldValue("contenu", data.contenu);
         setContenuInit(data.contenu);
+        setContenuInitEN(data.contenu_en);
         setProfileInit(data.htmlOne);
+        setProfileInitEN(data.htmlOne_en);
     };
 
     const goToDetail = (e, slug) => {
@@ -164,7 +176,7 @@ export const ViewTable = () => {
 
     const goTo = (e, id) => {
         e.preventDefault();
-        navigate(""+id);
+        navigate("" + id);
     };
 
     const onContenuChange = (newValue, editor) => {
@@ -174,9 +186,12 @@ export const ViewTable = () => {
     const onProfileChange = (newValue, editor) => {
         setProfile(newValue);
     };
+    const onEditorChange = (newValue, setData) => {
+        setData(newValue);
+    }
     return (
         <>
-            
+
             <div className="row mb-3">
                 <div className="col-12">
                     <h1 className="text-start mb-3 fs-30">
@@ -526,82 +541,28 @@ export const ViewTable = () => {
                                 formik={formik}
                             />
                             <Input
+                                type={"text"}
+                                label="Titre du contenu en anglais"
+                                placeholder="Titre du contenu"
+                                name={"titre_en"}
+                                formik={formik}
+                            />
+                            <Input
                                 type={"file"}
                                 label="image"
                                 placeholder="image"
                                 name={"image"}
                                 formik={formik}
                             />
-                            <Input
-                                type={"textarea"}
-                                placeholder="Description du produit"
-                                name={"description"}
-                                formik={formik}
-                            />
                             <div>Profile</div>
-                            <Editor
-                                apiKey="inw3u1xr6hvvw2ezjwlonyy3wu489wqh6vl0437mbkfyakgv"
-                                init={{
-                                    plugins:
-                                        " anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount  textcolor",
-                                    toolbar:
-                                        "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat | forecolor backcolor",
-                                    tinycomments_mode: "embedded",
-                                    tinycomments_author: "Author name",
-                                    mergetags_list: [
-                                        {
-                                            value: "First.Name",
-                                            title: "First Name",
-                                        },
-                                        { value: "Email", title: "Email" },
-                                    ],
-                                    ai_request: (request, respondWith) =>
-                                        respondWith.string(() =>
-                                            Promise.reject(
-                                                "See docs to implement AI Assistant"
-                                            )
-                                        ),
-                                    language: "fr_FR",
-                                    language_url: lang,
-                                    toolbar_mode: "wrap",
-                                }}
-                                initialValue={profileInit}
-                                onEditorChange={(newValue, editor) =>
-                                    onProfileChange(newValue, editor)
-                                }
-                            />
+                            <GetEditor initValue={profileInit} onEditorChange={onEditorChange} setValue={setProfile} lang={lang} />
+                            <div>Profile en anglais</div>
+                            <GetEditor initValue={profileInitEN} onEditorChange={onEditorChange} setValue={setProfileEn} lang={lang} />
                             <div>Contenu</div>
-                            <Editor
-                                apiKey="inw3u1xr6hvvw2ezjwlonyy3wu489wqh6vl0437mbkfyakgv"
-                                init={{
-                                    plugins:
-                                        " anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount  textcolor",
-                                    toolbar:
-                                        "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat | forecolor backcolor",
-                                    tinycomments_mode: "embedded",
-                                    tinycomments_author: "Author name",
-                                    mergetags_list: [
-                                        {
-                                            value: "First.Name",
-                                            title: "First Name",
-                                        },
-                                        { value: "Email", title: "Email" },
-                                    ],
-                                    ai_request: (request, respondWith) =>
-                                        respondWith.string(() =>
-                                            Promise.reject(
-                                                "See docs to implement AI Assistant"
-                                            )
-                                        ),
-                                    language: "fr_FR",
-                                    language_url: lang,
-                                    toolbar_mode: "wrap",
-                                }}
-                                initialValue={contenuInit}
-                                onEditorChange={(newValue, editor) =>
-                                    onContenuChange(newValue, editor)
-                                }
-                            />
+                            <GetEditor initValue={contenuInit} onEditorChange={onEditorChange} setValue={setContenu} lang={lang} />
+                            <div>Contenu en anglais</div>
+                            <GetEditor initValue={contenuInitEN} onEditorChange={onEditorChange} setValue={setContenuEn} lang={lang} />
+
                         </div>
                         <div className="modal-footer">
                             <button
@@ -626,3 +587,40 @@ export const ViewTable = () => {
         </>
     );
 };
+
+
+const GetEditor = ({initValue, onEditorChange, setValue, lang}) => {
+    return (
+        <Editor
+            apiKey="inw3u1xr6hvvw2ezjwlonyy3wu489wqh6vl0437mbkfyakgv"
+            init={{
+                plugins:
+                    " anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount  textcolor",
+                toolbar:
+                    "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat | forecolor backcolor",
+                tinycomments_mode: "embedded",
+                tinycomments_author: "Author name",
+                mergetags_list: [
+                    {
+                        value: "First.Name",
+                        title: "First Name",
+                    },
+                    { value: "Email", title: "Email" },
+                ],
+                ai_request: (request, respondWith) =>
+                    respondWith.string(() =>
+                        Promise.reject(
+                            "See docs to implement AI Assistant"
+                        )
+                    ),
+                language: "fr_FR",
+                language_url: lang,
+                toolbar_mode: "wrap",
+            }}
+            initialValue={initValue}
+            onEditorChange={(newValue, editor) =>
+                onEditorChange(newValue, setValue)
+            }
+        />
+    )
+}
