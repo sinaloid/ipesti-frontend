@@ -62,6 +62,8 @@ export const PublicationContent = ({ year_filter, programme_filter, search = "" 
 
                     // Extraction des dates
                     dates = item.contenu.match(dateRegex);
+                    console.log(dates)
+                    dates = dates ? dates : [new Date().getFullYear()];
                     return { ...item, dates: dates }
                 });
                 setData({
@@ -110,7 +112,7 @@ export const PublicationContent = ({ year_filter, programme_filter, search = "" 
 
                                     <div className="fw-bold" dangerouslySetInnerHTML={{ __html: lang === "en" ? truncateText(item.contenu_en, 100) : truncateText(item.contenu, 100) }} />
                                     <div className="d-flex align-items-center">
-                                        <Calendar /><span className="text-muted ms-1">{" Article publié en " + item.dates[item.dates.length - 1]}</span>
+                                        <Calendar /><span className="text-muted ms-1">{" Article publié en " + item?.dates[item.dates?.length - 1]}</span>
                                     </div>
                                 </div>
                             </div>
